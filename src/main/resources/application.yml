@@ -1,0 +1,21 @@
+logging:
+  level:
+    root: info
+    im.zhiyi: debug
+
+zhiyi:
+  netty:
+    iot:
+      coder:
+        byte-order: 0 # 数据是大端还是小端 0小端 1大端
+        max-frame-length: 2048 # 包的最大长度
+        length-field-offset: 1 # 长度域的偏移量
+        length-field-length: 2 # 记录该帧数据长度的字段本身的长度
+        length-adjustment: 4 # 该字段加长度字段等于数据帧的长度
+        initial-bytes-to-strip: 0 #  从数据帧中跳过的字节数
+        fail-fast: true # 超过 max-frame-length，就抛出一个 TooLongFrameException
+        type-field-length: 1 # 记录该帧数据类型的字段本身的长度
+        type-field-offset: 2 #类型域的偏移量
+      server:
+        port: 8010 # 端口
+        enable: true # 启动服务
