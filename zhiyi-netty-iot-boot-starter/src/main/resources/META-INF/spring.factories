@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  im.zhiyi.boot.netty.iot.starter.NettyAutoConfiguration

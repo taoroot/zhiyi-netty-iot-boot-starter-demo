@@ -4,15 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>im.zhiyi.demo</groupId>
-    <artifactId>zhiyi-netty-iot-boot-starter-demo</artifactId>
+    <groupId>im.zhiyi.boot</groupId>
+    <artifactId>zhiyi-netty</artifactId>
     <version>0.1</version>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.1.RELEASE</version>
     </parent>
+
+    <properties>
+        <hutool.version>5.1.0</hutool.version>
+    </properties>
+
 
     <repositories>
         <repository>
@@ -21,11 +27,86 @@
         </repository>
     </repositories>
 
+    <modules>
+        <module>zhiyi-netty-iot</module>
+        <module>zhiyi-netty-iot-spring</module>
+        <module>zhiyi-netty-iot-boot-starter</module>
+        <module>zhiyi-netty-iot-boot-starter-demo</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>im.zhiyi.boot</groupId>
+                <artifactId>zhiyi-netty-iot</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>im.zhiyi.boot</groupId>
+                <artifactId>zhiyi-netty-iot-spring</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>im.zhiyi.boot</groupId>
+                <artifactId>zhiyi-netty-iot-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
-            <groupId>im.zhiyi.boot</groupId>
-            <artifactId>zhiyi-netty-iot-boot-starter</artifactId>
-            <version>0.2-SNAPSHOT</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <target>${maven.compiler.target}</target>
+                    <source>${maven.compiler.source}</source>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
 </project>

@@ -1,0 +1,43 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- 协议包注入 -->
+    <bean class="im.zhiyi.boot.netty.iot.spring.NettyPackageScannerConfigure">
+        <property name="basePackage" value="im.zhiyi.boot.netty.iot.spring.protocol"/>
+    </bean>
+
+    <!-- 处理器注入 -->
+    <bean class="im.zhiyi.boot.netty.iot.spring.NettyHandlerRegistrar"/>
+
+    <!-- 自定义协议格式 -->
+    <bean id="nettyCoderProperties" class="im.zhiyi.boot.netty.iot.coder.NettyCoderProperties">
+        <!-- 根据需要修改属性值 -->
+    </bean>
+
+    <!-- netty服务端配置-->
+    <bean id="nettyServerProperties" class="im.zhiyi.boot.netty.iot.server.NettyServerProperties">
+        <!-- 根据需要修改属性值 -->
+    </bean>
+
+    <!-- 线程池 -->
+    <bean id="bossGroup" name="bossGroup" class="io.netty.channel.nio.NioEventLoopGroup">
+        <constructor-arg value="1" type="int"/>
+    </bean>
+    <bean id="workGroup" name="workGroup" class="io.netty.channel.nio.NioEventLoopGroup"/>
+    <bean id="handleGroup" name="handleGroup" class="io.netty.channel.nio.NioEventLoopGroup"/>
+
+    <!-- 编解码器 -->
+    <bean id="coder" class="im.zhiyi.boot.netty.iot.coder.DefaultNettyPackageCoder"/>
+
+    <!-- 启动netty服务 -->
+    <bean class="im.zhiyi.boot.netty.iot.server.NettyServer" init-method="startAsync" destroy-method="stop">
+        <constructor-arg index="0" ref="nettyServerProperties"/>
+        <constructor-arg index="1" ref="nettyCoderProperties"/>
+        <constructor-arg index="2" ref="bossGroup"/>
+        <constructor-arg index="3" ref="workGroup"/>
+        <constructor-arg index="4" ref="handleGroup"/>
+        <constructor-arg index="5" ref="coder"/>
+    </bean>
+</beans>
