@@ -145,4 +145,4 @@ zhiyi:
 
 公众号回复 netty 获取视频链接
 
-![](./qr.jpg)
+![](http://oss.flizi.cn/blog/zymy.jpg)
